@@ -19,7 +19,8 @@
         "eslint-plugin-prettier": "^2.6.0",
         "eslint-plugin-react": "^7.6.1",
         "prettier": "^1.10.2",
-        "prettier-eslint": "^8.8.1"
+        "prettier-eslint": "^8.8.1",
+        "stylelint-config-standard": "^18.0.0"
     },
     "browserslist": [
         "> 1%",
