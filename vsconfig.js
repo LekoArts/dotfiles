@@ -40,4 +40,5 @@
   "window.zoomLevel": 0,
   "explorer.confirmDelete": false,
   "problems.decorations.enabled": true,
+  "git.autofetch": true,
 }
