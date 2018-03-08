@@ -6,9 +6,15 @@
   "editor.minimap.enabled": false,
   "editor.wordWrap": "on",
   "editor.snippetSuggestions": "top",
-  "editor.formatOnSave": false,
-  "[css]": {
-    "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "[javascriptreact]": {
+    "editor.formatOnSave": false
+  },
+  "[javascript]": {
+    "editor.formatOnSave": false
+  },
+  "[markdown]": {
+    "editor.formatOnSave": false
   },
   // Workbench
   "workbench.startupEditor": "newUntitledFile",
@@ -25,10 +31,6 @@
   "eslint.autoFixOnSave": true,
   "eslint.alwaysShowStatus": true,
   "javascript.format.enable": false,
-  // Stylelint
-  "stylelint.enable": true,
-  "css.validate": false,
-  "scss.validate": false,
   // Emmet
   "emmet.includeLanguages": {
     "javascript": "javascriptreact",
@@ -39,6 +41,7 @@
   "markdown.previewFrontMatter": "show",
   "window.zoomLevel": 0,
   "explorer.confirmDelete": false,
+  "extensions.ignoreRecommendations": true,
   "problems.decorations.enabled": true,
   "git.autofetch": true,
 }
