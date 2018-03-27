@@ -31,6 +31,10 @@
   "eslint.autoFixOnSave": true,
   "eslint.alwaysShowStatus": true,
   "javascript.format.enable": false,
+  // Prettier
+  "prettier.tabWidth": 2,
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "es5",
   // Emmet
   "emmet.includeLanguages": {
     "javascript": "javascriptreact",
