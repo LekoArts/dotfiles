@@ -2,20 +2,21 @@
   // Editor
   "editor.fontSize": 18,
   "editor.lineHeight": 25,
+  "editor.tabSize": 2,
   "editor.fontFamily": "Source Code Pro, Consolas, monospace",
   "editor.minimap.enabled": false,
   "editor.wordWrap": "on",
   "editor.snippetSuggestions": "top",
   "editor.formatOnSave": true,
   "[javascriptreact]": {
-    "editor.formatOnSave": false
-  },
+  "editor.formatOnSave": false
+},
   "[javascript]": {
-    "editor.formatOnSave": false
-  },
+  "editor.formatOnSave": false
+},
   "[markdown]": {
-    "editor.formatOnSave": false
-  },
+  "editor.formatOnSave": false
+},
   // Workbench
   "workbench.startupEditor": "newUntitledFile",
   "workbench.activityBar.visible": true,
@@ -37,10 +38,10 @@
   "prettier.trailingComma": "es5",
   // Emmet
   "emmet.includeLanguages": {
-    "javascript": "javascriptreact",
+  "javascript": "javascriptreact",
     "vue-html": "html",
     "plaintext": "jade"
-  },
+},
   // Sonstiges
   "markdown.previewFrontMatter": "show",
   "window.zoomLevel": 0,
