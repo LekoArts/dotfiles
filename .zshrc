@@ -105,7 +105,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 
 alias zshrc="nano ~/.zshrc"
-alias ohmyzsh="nano ~/.oh-my-zsh"
+alias ohmyzsh="cd ~/.oh-my-zsh"
 alias git=hub
 alias c="code ."
 alias ll="ls -1a"
@@ -118,6 +118,11 @@ alias upgrade='cd "$ZSH" && git stash && upgrade_oh_my_zsh && git stash pop'
 alias npmg='npm list -g --depth 0'
 
 fpath=(~/.zsh/completions /home/lennart/.oh-my-zsh/plugins/yarn /home/lennart/.oh-my-zsh/custom/plugins/zsh-autosuggestions /home/lennart/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting /home/lennart/.oh-my-zsh/plugins/git /home/lennart/.oh-my-zsh/functions /home/lennart/.oh-my-zsh/completions /usr/local/share/zsh/site-functions /usr/share/zsh/vendor-functions /usr/share/zsh/vendor-completions /usr/share/zsh/functions/Calendar /usr/share/zsh/functions/Chpwd /usr/share/zsh/functions/Completion /usr/share/zsh/functions/Completion/AIX /usr/share/zsh/functions/Completion/BSD /usr/share/zsh/functions/Completion/Base /usr/share/zsh/functions/Completion/Cygwin /usr/share/zsh/functions/Completion/Darwin /usr/share/zsh/functions/Completion/Debian /usr/share/zsh/functions/Completion/Linux /usr/share/zsh/functions/Completion/Mandriva /usr/share/zsh/functions/Completion/Redhat /usr/share/zsh/functions/Completion/Solaris /usr/share/zsh/functions/Completion/Unix /usr/share/zsh/functions/Completion/X /usr/share/zsh/functions/Completion/Zsh /usr/share/zsh/functions/Completion/openSUSE /usr/share/zsh/functions/Exceptions /usr/share/zsh/functions/MIME /usr/share/zsh/functions/Math /usr/share/zsh/functions/Misc /usr/share/zsh/functions/Newuser /usr/share/zsh/functions/Prompts /usr/share/zsh/functions/TCP /usr/share/zsh/functions/VCS_Info /usr/share/zsh/functions/VCS_Info/Backends /usr/share/zsh/functions/Zftp /usr/share/zsh/functions/Zle)
-autoload -U compinit && compinit
 
 shorten() { node /mnt/e/Lennart/Development/GitHub/shortener/node_modules/.bin/netlify-shortener "$1" "$2"; }
+search() { grep -rHn -C 1 "$1" *; }
+
+# make cd use the LS colors
+zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
+autoload -Uz compinit
+compinit
