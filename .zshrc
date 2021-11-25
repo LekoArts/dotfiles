@@ -1,29 +1,100 @@
+# Init nvm
+source /opt/local/share/nvm/init-nvm.sh
 
+# Macports
+export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+
+# Add NPM token
+export NPM_TOKEN=`grep registry.npmjs.org/:_authToken ~/.npmrc | cut -d = -f 2`
+
+# Add zsh to fpath
+fpath=(~/.zsh $fpath)
+
+# Default editor
+export REACT_EDITOR="code"
+
+DEFAULT_USER=`whoami`
+
+# --- DEFAULT oh-my-zsh CONFIG ---
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-ZSH_DISABLE_COMPFIX=true
-
-export PATH=$HOME/.npm-global/bin:$PATH
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/lennart/.oh-my-zsh"
-
-# Other configs
-
+export ZSH="/Users/lejoe/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="agnoster"
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="spaceship"
 
-# set colors for LS_COLORS
-eval `dircolors ~/.dircolors`
+# Spaceship Settings
+SPACESHIP_GCLOUD_SHOW=false
+SPACESHIP_DIR_TRUNC=2
+
+# Colors
+SPACESHIP_CHAR_COLOR_SUCCESS=32
+SPACESHIP_CHAR_COLORS_FAILURE=31
+SPACESHIP_CHAR_COLOR_SECONDARY=33
+SPACESHIP_TIME_COLOR=33
+SPACESHIP_USER_COLORS=33
+SPACESHIP_USER_COLOR_ROOT=31
+SPACESHIP_HOST_COLOR=34
+SPACESHIP_HOST_COLOR_SSH=32
+SPACESHIP_DIR_COLOR=36
+SPACESHIP_DIR_LOCK_COLOR=31
+SPACESHIP_GIT_BRANCH_COLOR=35
+SPACESHIP_GIT_STATUS_COLOR=31
+SPACESHIP_PACKAGE_COLOR=31
+SPACESHIP_NODE_COLOR=32
+SPACESHIP_VENV_COLOR=34
+SPACESHIP_PYENV_COLOR=33
+
+# Edit the default prompt to save time
+SPACESHIP_PROMPT_ORDER=(
+  time          # Time stamps section
+  user          # Username section
+  dir           # Current directory section
+  host          # Hostname section
+  git           # Git section (git_branch + git_status)
+  hg            # Mercurial section (hg_branch  + hg_status)
+  package       # Package version
+  node          # Node.js section
+  # ruby          # Ruby section
+  elixir        # Elixir section
+  # xcode         # Xcode section
+  # swift         # Swift section
+  golang        # Go section
+  php           # PHP section
+  rust          # Rust section
+  # haskell       # Haskell Stack section
+  # julia         # Julia section
+  docker        # Docker section
+  aws           # Amazon Web Services section
+  # gcloud        # Google Cloud Platform section
+  # conda         # conda virtualenv section
+  # dotnet        # .NET section
+  # ember         # Ember.js section
+  venv          # virtualenv section
+  # pyenv         # Pyenv section
+  kubectl       # Kubectl context section
+  # terraform     # Terraform workspace section
+  exec_time     # Execution time
+  line_sep      # Line break
+  # battery       # Battery level and status
+  vi_mode       # Vi-mode indicator
+  jobs          # Background jobs indicator
+  exit_code     # Exit code section
+  char          # Prompt character
+)
+
+# Further spaceship options
+SPACESHIP_VENV_GENERIC_NAMES=(placeholder)
+SPACESHIP_VENV_SYMBOL=🐍
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# a theme from this variable instead of looking in $ZSH/themes/
 # If set to an empty array, this variable will have no effect.
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
@@ -34,11 +105,16 @@ eval `dircolors ~/.dircolors`
 # Case-sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+# Uncomment one of the following lines to change the auto-update behavior
+# zstyle ':omz:update' mode disabled  # disable automatic updates
+# zstyle ':omz:update' mode auto      # update automatically without asking
+# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+# zstyle ':omz:update' frequency 13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS="true"
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -50,6 +126,9 @@ eval `dircolors ~/.dircolors`
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
+# You can also set it to another string to have that shown instead of the default red dots.
+# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
 # COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
@@ -69,11 +148,11 @@ eval `dircolors ~/.dircolors`
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions yarn zsh-syntax-highlighting)
+plugins=(git zsh-autosuggestions virtualenv yarn zsh-syntax-highlighting zsh-dircolors-solarized history gh)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -94,35 +173,31 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias zshrc="nano ~/.zshrc"
+# Aliases
+
+alias zshrc="code ~/.zshrc"
 alias ohmyzsh="cd ~/.oh-my-zsh"
-alias git=hub
 alias c="code ."
 alias ll="ls -1a"
-alias dev="yarn dev"
-alias develop="yarn develop"
-alias build="yarn build"
-alias de="cd /mnt/e/Lennart/Development"
 alias sb="source ~/.zshrc"
-alias upgrade='cd "$ZSH" && git stash && upgrade_oh_my_zsh && git stash pop'
-alias npmg='npm list -g --depth 0'
+alias npmg="npm list -g --depth 0"
+alias npkill="npx npkill"
+alias jstots='npx typescript */**/*.js --declaration --allowJs --skipLibCheck --emitDeclarationOnly --outDir types'
 
-fpath=(~/.zsh/completions /home/lennart/.oh-my-zsh/plugins/yarn /home/lennart/.oh-my-zsh/custom/plugins/zsh-autosuggestions /home/lennart/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting /home/lennart/.oh-my-zsh/plugins/git /home/lennart/.oh-my-zsh/functions /home/lennart/.oh-my-zsh/completions /usr/local/share/zsh/site-functions /usr/share/zsh/vendor-functions /usr/share/zsh/vendor-completions /usr/share/zsh/functions/Calendar /usr/share/zsh/functions/Chpwd /usr/share/zsh/functions/Completion /usr/share/zsh/functions/Completion/AIX /usr/share/zsh/functions/Completion/BSD /usr/share/zsh/functions/Completion/Base /usr/share/zsh/functions/Completion/Cygwin /usr/share/zsh/functions/Completion/Darwin /usr/share/zsh/functions/Completion/Debian /usr/share/zsh/functions/Completion/Linux /usr/share/zsh/functions/Completion/Mandriva /usr/share/zsh/functions/Completion/Redhat /usr/share/zsh/functions/Completion/Solaris /usr/share/zsh/functions/Completion/Unix /usr/share/zsh/functions/Completion/X /usr/share/zsh/functions/Completion/Zsh /usr/share/zsh/functions/Completion/openSUSE /usr/share/zsh/functions/Exceptions /usr/share/zsh/functions/MIME /usr/share/zsh/functions/Math /usr/share/zsh/functions/Misc /usr/share/zsh/functions/Newuser /usr/share/zsh/functions/Prompts /usr/share/zsh/functions/TCP /usr/share/zsh/functions/VCS_Info /usr/share/zsh/functions/VCS_Info/Backends /usr/share/zsh/functions/Zftp /usr/share/zsh/functions/Zle)
+# Other
 
-shorten() { node /mnt/e/Lennart/Development/GitHub/shortener/node_modules/.bin/netlify-shortener "$1" "$2"; }
 search() { grep -rHn -C 1 "$1" *; }
 
-# make cd use the LS colors
-zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
+# scan each path within the fpath variable for files starting with an underscore and load corresponding script as function file
 autoload -Uz compinit
+# initialize the shell's auto-completion functionality
 compinit
