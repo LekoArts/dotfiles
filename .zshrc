@@ -197,6 +197,8 @@ alias jstots='npx typescript */**/*.js --declaration --allowJs --skipLibCheck --
 
 search() { grep -rHn -C 1 "$1" *; }
 
+shorten() { node /<PATH>/shortener/node_modules/.bin/netlify-shortener "$1" "$2"; }
+
 # scan each path within the fpath variable for files starting with an underscore and load corresponding script as function file
 autoload -Uz compinit
 # initialize the shell's auto-completion functionality
