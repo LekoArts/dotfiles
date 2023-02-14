@@ -6,20 +6,29 @@ export NPM_TOKEN="grep registry.npmjs.org/:_authToken ~/.npmrc | cut -d = -f 2"
 # Add GitHub token
 export GITHUB_TOKEN="XXX"
 
-# Add zsh to fpath
-fpath=(~/.zsh $fpath)
+# fpath changes
+fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
+
+# enable color support of ls and also add handy aliases
+# GNU tools from MacPorts, to install run:
+# sudo port install coreutils +with_default_names
+if [ -x /opt/local/libexec/gnubin/dircolors ]; then
+  alias dircolors=/opt/local/libexec/gnubin/dircolors
+fi
+
+# Macports
+export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# Path to your oh-my-zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
 
 # Default editor
 export REACT_EDITOR="code"
 
 DEFAULT_USER="whoami"
-
-# --- DEFAULT oh-my-zsh CONFIG ---
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-# Path to your oh-my-zsh installation.
-export ZSH="/Users/lejoe/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -46,8 +55,6 @@ SPACESHIP_GIT_BRANCH_COLOR=35
 SPACESHIP_GIT_STATUS_COLOR=31
 SPACESHIP_PACKAGE_COLOR=31
 SPACESHIP_NODE_COLOR=32
-SPACESHIP_VENV_COLOR=34
-SPACESHIP_PYENV_COLOR=33
 
 # Edit the default prompt to save time
 SPACESHIP_PROMPT_ORDER=(
@@ -74,9 +81,9 @@ SPACESHIP_PROMPT_ORDER=(
   # conda         # conda virtualenv section
   # dotnet        # .NET section
   # ember         # Ember.js section
-  venv          # virtualenv section
+  # venv          # virtualenv section
   # pyenv         # Pyenv section
-  kubectl       # Kubectl context section
+  # kubectl       # Kubectl context section
   # terraform     # Terraform workspace section
   exec_time     # Execution time
   line_sep      # Line break
@@ -86,10 +93,6 @@ SPACESHIP_PROMPT_ORDER=(
   exit_code     # Exit code section
   char          # Prompt character
 )
-
-# Further spaceship options
-SPACESHIP_VENV_GENERIC_NAMES=(placeholder)
-SPACESHIP_VENV_SYMBOL=🐍
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -154,9 +157,12 @@ ZSH_TAB_TITLE_DEFAULT_DISABLE_PREFIX=true
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions virtualenv yarn rust zsh-syntax-highlighting zsh-dircolors-solarized history gh ohmyzsh-full-autoupdate zsh-tab-title)
+plugins=(git zsh-autosuggestions virtualenv yarn zsh-syntax-highlighting zsh-dircolors-solarized history gh rust ohmyzsh-full-autoupdate zsh-tab-title)
 
 source $ZSH/oh-my-zsh.sh
+
+# Init nvm - Should be last!
+source /opt/local/share/nvm/init-nvm.sh
 
 # User configuration
 
@@ -179,13 +185,6 @@ source $ZSH/oh-my-zsh.sh
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# Init nvm - Should be last!
-source /opt/local/share/nvm/init-nvm.sh
 
 # Aliases
 
@@ -195,10 +194,9 @@ alias c="code ."
 alias sb="source ~/.zshrc"
 alias npmg="npm list -g --depth 0"
 alias npkill="npx npkill"
-alias jstots='npx typescript */**/*.js --declaration --allowJs --skipLibCheck --emitDeclarationOnly --outDir types'
 alias portupdate="sudo port selfupdate && sudo port upgrade outdated"
 
-# exa
+## exa
 alias ls="exa" # ls
 alias ll='exa -lbF --git' # list, size, type, git
 alias llm='exa -lbGd --git --sort=modified' # long list, modified date sort
@@ -207,19 +205,9 @@ alias lx='exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale' # all + e
 alias lS='exa -1' # one column, just names
 alias lt='exa --tree --level=2' # tree
 
-# python
-alias mkvenv="python3 -m venv env"
-alias entervenv="source env/bin/activate"
-alias pinstall="pip install -r requirements.txt"
-alias pfreeze="pip freeze > requirements.txt"
-alias pyinit="mkvenv && 'env' >> .gitignore"
-
 # Other functions
 search() { grep -rHn -C 1 "$1" *; }
 shorten() { node /Users/lejoe/code/github/shortener/node_modules/.bin/netlify-shortener "$1" "$2"; }
 mkfile() { mkdir -p -- "$1" && touch -- "$1"/"$2" }
 
-# scan each path within the fpath variable for files starting with an underscore and load corresponding script as function file
-autoload -Uz compinit
-# initialize the shell's auto-completion functionality
-compinit
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
