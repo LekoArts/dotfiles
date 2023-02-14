@@ -1,11 +1,10 @@
-# Init nvm
-source /opt/local/share/nvm/init-nvm.sh
-
 # Macports
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 
 # Add NPM token
-export NPM_TOKEN=`grep registry.npmjs.org/:_authToken ~/.npmrc | cut -d = -f 2`
+export NPM_TOKEN="grep registry.npmjs.org/:_authToken ~/.npmrc | cut -d = -f 2"
+# Add GitHub token
+export GITHUB_TOKEN="XXX"
 
 # Add zsh to fpath
 fpath=(~/.zsh $fpath)
@@ -13,7 +12,7 @@ fpath=(~/.zsh $fpath)
 # Default editor
 export REACT_EDITOR="code"
 
-DEFAULT_USER=`whoami`
+DEFAULT_USER="whoami"
 
 # --- DEFAULT oh-my-zsh CONFIG ---
 # If you come from bash you might have to change your $PATH.
@@ -61,16 +60,16 @@ SPACESHIP_PROMPT_ORDER=(
   package       # Package version
   node          # Node.js section
   # ruby          # Ruby section
-  elixir        # Elixir section
+  # elixir        # Elixir section
   # xcode         # Xcode section
   # swift         # Swift section
-  golang        # Go section
-  php           # PHP section
+  # golang        # Go section
+  # php           # PHP section
   rust          # Rust section
   # haskell       # Haskell Stack section
   # julia         # Julia section
   docker        # Docker section
-  aws           # Amazon Web Services section
+  # aws           # Amazon Web Services section
   # gcloud        # Google Cloud Platform section
   # conda         # conda virtualenv section
   # dotnet        # .NET section
@@ -82,7 +81,7 @@ SPACESHIP_PROMPT_ORDER=(
   exec_time     # Execution time
   line_sep      # Line break
   # battery       # Battery level and status
-  vi_mode       # Vi-mode indicator
+  # vi_mode       # Vi-mode indicator
   jobs          # Background jobs indicator
   exit_code     # Exit code section
   char          # Prompt character
@@ -122,6 +121,9 @@ SPACESHIP_VENV_SYMBOL=🐍
 # Uncomment the following line to disable auto-setting terminal title.
 # DISABLE_AUTO_TITLE="true"
 
+ZSH_TAB_TITLE_CONCAT_FOLDER_PROCESS=true
+ZSH_TAB_TITLE_DEFAULT_DISABLE_PREFIX=true
+
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
 
@@ -152,7 +154,7 @@ SPACESHIP_VENV_SYMBOL=🐍
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions virtualenv yarn zsh-syntax-highlighting zsh-dircolors-solarized history gh)
+plugins=(git zsh-autosuggestions virtualenv yarn rust zsh-syntax-highlighting zsh-dircolors-solarized history gh ohmyzsh-full-autoupdate zsh-tab-title)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -182,22 +184,40 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# Init nvm - Should be last!
+source /opt/local/share/nvm/init-nvm.sh
+
 # Aliases
 
 alias zshrc="code ~/.zshrc"
 alias ohmyzsh="cd ~/.oh-my-zsh"
 alias c="code ."
-alias ll="ls -1a"
 alias sb="source ~/.zshrc"
 alias npmg="npm list -g --depth 0"
 alias npkill="npx npkill"
 alias jstots='npx typescript */**/*.js --declaration --allowJs --skipLibCheck --emitDeclarationOnly --outDir types'
+alias portupdate="sudo port selfupdate && sudo port upgrade outdated"
 
-# Other
+# exa
+alias ls="exa" # ls
+alias ll='exa -lbF --git' # list, size, type, git
+alias llm='exa -lbGd --git --sort=modified' # long list, modified date sort
+alias la='exa -lbhHigUmuSa --time-style=long-iso --git --color-scale' # all list
+alias lx='exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale' # all + extended list
+alias lS='exa -1' # one column, just names
+alias lt='exa --tree --level=2' # tree
 
+# python
+alias mkvenv="python3 -m venv env"
+alias entervenv="source env/bin/activate"
+alias pinstall="pip install -r requirements.txt"
+alias pfreeze="pip freeze > requirements.txt"
+alias pyinit="mkvenv && 'env' >> .gitignore"
+
+# Other functions
 search() { grep -rHn -C 1 "$1" *; }
-
-shorten() { node /<PATH>/shortener/node_modules/.bin/netlify-shortener "$1" "$2"; }
+shorten() { node /Users/lejoe/code/github/shortener/node_modules/.bin/netlify-shortener "$1" "$2"; }
+mkfile() { mkdir -p -- "$1" && touch -- "$1"/"$2" }
 
 # scan each path within the fpath variable for files starting with an underscore and load corresponding script as function file
 autoload -Uz compinit
