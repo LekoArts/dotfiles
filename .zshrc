@@ -5,6 +5,8 @@ export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 export NPM_TOKEN="grep registry.npmjs.org/:_authToken ~/.npmrc | cut -d = -f 2"
 # Add GitHub token
 export GITHUB_TOKEN="XXX"
+# Bat
+export BAT_CONFIG_PATH="$HOME/bat.conf"
 
 # fpath changes
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
