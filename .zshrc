@@ -151,4 +151,8 @@ search() { grep -rHn -C 1 "$1" *; }
 shorten() { node /Users/lejoe/code/github/shortener/node_modules/.bin/netlify-shortener "$1" "$2"; }
 mkfile() { mkdir -p -- "$1" && touch -- "$1"/"$2" }
 
+# fzf
+source /opt/local/share/fzf/shell/key-bindings.zsh
+source /opt/local/share/fzf/shell/completion.zsh
+
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
