@@ -1,3 +1,6 @@
+# fnm
+eval "$(fnm env --use-on-cd)"
+
 # Macports
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 
@@ -101,9 +104,6 @@ ZSH_TAB_TITLE_DEFAULT_DISABLE_PREFIX=true
 plugins=(git zsh-autosuggestions yarn zsh-syntax-highlighting zsh-dircolors-solarized history gh rust ohmyzsh-full-autoupdate zsh-tab-title)
 
 source $ZSH/oh-my-zsh.sh
-
-# Init nvm - Should be last!
-source /opt/local/share/nvm/init-nvm.sh
 
 # User configuration
 
