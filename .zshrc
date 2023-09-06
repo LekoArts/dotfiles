@@ -6,10 +6,12 @@ export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 
 # Add NPM token
 export NPM_TOKEN="grep registry.npmjs.org/:_authToken ~/.npmrc | cut -d = -f 2"
-# Add GitHub token
-export GITHUB_TOKEN="XXX"
 # Bat
 export BAT_CONFIG_PATH="$HOME/bat.conf"
+# fd as fzf standard
+export FZF_DEFAULT_COMMAND="fd --type f"
+# Change zsh-z default cmd
+export ZSHZ_CMD="_z"
 
 # fpath changes
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
@@ -101,7 +103,7 @@ ZSH_TAB_TITLE_DEFAULT_DISABLE_PREFIX=true
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions yarn zsh-syntax-highlighting zsh-dircolors-solarized history gh rust ohmyzsh-full-autoupdate zsh-tab-title)
+plugins=(git zsh-autosuggestions yarn zsh-syntax-highlighting zsh-dircolors-solarized history gh rust ohmyzsh-full-autoupdate zsh-tab-title z)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -147,9 +149,30 @@ alias lS='exa -1' # one column, just names
 alias lt='exa --tree --level=2' # tree
 
 # Other functions
-search() { grep -rHn -C 1 "$1" *; }
+# Netlify Shortener for leko.io
 shorten() { node /Users/lejoe/code/github/shortener/node_modules/.bin/netlify-shortener "$1" "$2"; }
+# Create a directory and a file
 mkfile() { mkdir -p -- "$1" && touch -- "$1"/"$2" }
+# Navigate directories with fzf
+z() {
+  [ $# -gt 0 ] && _z "$*" && return
+  cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
+}
+# Fuzzy-search branches
+gcos() {
+  result=$(git branch -a --color=always | grep -v '/HEAD\s' | sort |
+    fzf --height 50% --border --ansi --tac --preview-window right:70% \
+      --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1) | head -'$LINES |
+    sed 's/^..//' | cut -d' ' -f1)
+
+  if [[ $result != "" ]]; then
+    if [[ $result == remotes/* ]]; then
+      git checkout --track $(echo $result | sed 's#remotes/##')
+    else
+      git checkout "$result"
+    fi
+  fi
+}
 
 # fzf
 source /opt/local/share/fzf/shell/key-bindings.zsh
