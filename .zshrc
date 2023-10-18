@@ -143,9 +143,6 @@ alias npkill="npx npkill"
 alias portupdate="sudo port selfupdate && sudo port upgrade outdated"
 alias preview="fzf --preview 'bat --color=always {}' --preview-window '~3'"
 
-## Remove aliases
-unalias gco
-
 ## exa
 alias ls="exa" # ls
 alias ll='exa -lbF --git' # list, size, type, git
@@ -166,7 +163,7 @@ z() {
   cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
 }
 # Fuzzy-search branches
-gco() {
+gcos() {
   _fzf_git_branches --no-multi | xargs git checkout
 }
 
