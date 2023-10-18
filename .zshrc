@@ -3,6 +3,8 @@ eval "$(fnm env --use-on-cd)"
 
 # Macports
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+# Go
+export PATH=$PATH:$(go env GOPATH)/bin
 
 # Add NPM token
 export NPM_TOKEN="grep registry.npmjs.org/:_authToken ~/.npmrc | cut -d = -f 2"
@@ -31,6 +33,7 @@ export ZSH="$HOME/.oh-my-zsh"
 
 # Default editor
 export REACT_EDITOR="code"
+export EDITOR="code"
 
 DEFAULT_USER="whoami"
 
@@ -138,6 +141,10 @@ alias sb="source ~/.zshrc"
 alias npmg="npm list -g --depth 0"
 alias npkill="npx npkill"
 alias portupdate="sudo port selfupdate && sudo port upgrade outdated"
+alias preview="fzf --preview 'bat --color=always {}' --preview-window '~3'"
+
+## Remove aliases
+unalias gco
 
 ## exa
 alias ls="exa" # ls
@@ -159,23 +166,14 @@ z() {
   cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
 }
 # Fuzzy-search branches
-gcos() {
-  result=$(git branch -a --color=always | grep -v '/HEAD\s' | sort |
-    fzf --height 50% --border --ansi --tac --preview-window right:70% \
-      --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1) | head -'$LINES |
-    sed 's/^..//' | cut -d' ' -f1)
-
-  if [[ $result != "" ]]; then
-    if [[ $result == remotes/* ]]; then
-      git checkout --track $(echo $result | sed 's#remotes/##')
-    else
-      git checkout "$result"
-    fi
-  fi
+gco() {
+  _fzf_git_branches --no-multi | xargs git checkout
 }
 
 # fzf
 source /opt/local/share/fzf/shell/key-bindings.zsh
 source /opt/local/share/fzf/shell/completion.zsh
+
+source "$HOME/fzf-git.sh"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
