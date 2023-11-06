@@ -142,6 +142,7 @@ alias npmg="npm list -g --depth 0"
 alias npkill="npx npkill"
 alias portupdate="sudo port selfupdate && sudo port upgrade outdated"
 alias preview="fzf --preview 'bat --color=always {}' --preview-window '~3'"
+alias rm=trash
 
 ## exa
 alias ls="exa" # ls
