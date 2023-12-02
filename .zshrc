@@ -167,6 +167,13 @@ z() {
 gcos() {
   _fzf_git_branches --no-multi | xargs git checkout
 }
+# Copy globally installed packages from one version of Node to another
+# Usage: fnm_upgrade 18.17.1
+fnm_upgrade () {
+  fnm exec --using=$1 npm ls --global --json \
+    | jq -r '.dependencies | to_entries[] | .key+"@"+.value.version' \
+    | xargs npm i -g
+}
 
 # fzf
 source /opt/local/share/fzf/shell/key-bindings.zsh
