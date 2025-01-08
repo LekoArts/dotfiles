@@ -6,6 +6,7 @@ clipboard-write = allow
 copy-on-select = false
 window-height = 30
 window-width = 130
+window-inherit-working-directory = false
 theme = Solarized Dark - Patched
 background = #001e27
 foreground = #708284
