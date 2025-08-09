@@ -144,14 +144,14 @@ alias portupdate="sudo port selfupdate && sudo port upgrade outdated"
 alias preview="fzf --preview 'bat --color=always {}' --preview-window '~3'"
 alias rm=trash
 
-## exa
-alias ls="exa" # ls
-alias ll='exa -lbF --git' # list, size, type, git
-alias llm='exa -lbGd --git --sort=modified' # long list, modified date sort
-alias la='exa -lbhHigUmuSa --time-style=long-iso --git --color-scale' # all list
-alias lx='exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale' # all + extended list
-alias lS='exa -1' # one column, just names
-alias lt='exa --tree --level=2' # tree
+## eza
+alias ls="eza" # ls
+alias ll='eza -lbF --git' # list, size, type, git
+alias llm='eza -lbGd --git --sort=modified' # long list, modified date sort
+alias la='eza -lbhHigUmuSa --time-style=long-iso --git --color-scale' # all list
+alias lx='eza -lbhHigUmuSa@ --time-style=long-iso --git --color-scale' # all + extended list
+alias lS='eza -1' # one column, just names
+alias lt='eza --tree --level=2' # tree
 
 # Other functions
 # Netlify Shortener for leko.io
