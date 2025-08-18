@@ -106,7 +106,7 @@ ZSH_TAB_TITLE_DEFAULT_DISABLE_PREFIX=true
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions yarn zsh-syntax-highlighting zsh-dircolors-solarized history gh rust ohmyzsh-full-autoupdate zsh-tab-title z)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting zsh-dircolors-solarized history gh rust ohmyzsh-full-autoupdate zsh-tab-title z)
 
 source $ZSH/oh-my-zsh.sh
 
