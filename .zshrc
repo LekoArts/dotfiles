@@ -154,10 +154,7 @@ alias lS='eza -1' # one column, just names
 alias lt='eza --tree --level=2' # tree
 
 # Other functions
-# Netlify Shortener for leko.io
-shorten() { node /Users/lejoe/code/github/shortener/node_modules/.bin/netlify-shortener "$1" "$2"; }
-# Create a directory and a file
-mkfile() { mkdir -p -- "$1" && touch -- "$1"/"$2" }
+
 # Navigate directories with fzf
 z() {
   [ $# -gt 0 ] && _z "$*" && return
