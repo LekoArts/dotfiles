@@ -18,6 +18,8 @@ export ZSHZ_CMD="_z"
 # fpath changes
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
+autoload -U compinit && compinit
+
 # enable color support of ls and also add handy aliases
 # GNU tools from MacPorts, to install run:
 # sudo port install coreutils +with_default_names
