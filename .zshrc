@@ -34,8 +34,7 @@ fi
 export ZSH="$HOME/.oh-my-zsh"
 
 # Default editor
-export REACT_EDITOR="code"
-export EDITOR="code"
+export EDITOR="code --wait"
 
 DEFAULT_USER="whoami"
 
