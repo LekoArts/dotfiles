@@ -3,7 +3,7 @@
 Use the GH CLI to analyze and summarize a pull request for the current repository.
 The current branch is checked out in the same branch as the PR.
 
-RUN gh pr view --json title,body,commits,files,labels,assignees,reviews,comments,checksStatus
+RUN gh pr view --json title,body,commits,files,labels,assignees,reviews,comments,statusCheckRollup
 
 ## Review Process
 
